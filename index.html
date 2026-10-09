@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#12372a">
+  <meta name="description" content="Registro diario de cantidades de envíos por cliente.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Envíos diarios</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">↗</span><span>Registro de envíos</span></div>
+    <button id="installBtn" class="install-btn" hidden>Instalar</button>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">CONTROL DIARIO</p><h1>Envíos por cliente</h1><p class="sub">Registrá cantidades y seguí el volumen de cada día.</p></div>
+      <button id="openForm" class="primary desktop-add">＋ Registrar cantidad</button>
+    </section>
+
+    <section class="filters card">
+      <label>Desde<input id="dateFrom" type="date"></label>
+      <label>Hasta<input id="dateTo" type="date"></label>
+      <label class="client-filter">Cliente<select id="clientFilter"><option value="">Todos los clientes</option></select></label>
+      <button id="resetFilters" class="quiet">Limpiar</button>
+    </section>
+
+    <section class="metrics">
+      <article class="metric card"><span class="metric-label">Envíos del período</span><strong id="totalMetric">0</strong><span class="metric-hint">suma de registros</span></article>
+      <article class="metric card"><span class="metric-label">Clientes con actividad</span><strong id="clientsMetric">0</strong><span class="metric-hint">en el período elegido</span></article>
+      <article class="metric card"><span class="metric-label">Promedio diario</span><strong id="averageMetric">0</strong><span class="metric-hint">envíos por día</span></article>
+    </section>
+
+    <section class="charts">
+      <article class="card chart-card"><div class="section-head"><div><h2>Volumen diario</h2><p>Total de envíos recibidos por día</p></div></div><div id="dailyChart" class="chart-area"></div></article>
+      <article class="card chart-card"><div class="section-head"><div><h2>Por cliente</h2><p>Totales del período filtrado</p></div></div><div id="clientChart" class="bar-list"></div></article>
+    </section>
+
+    <section class="card records-card">
+      <div class="section-head"><div><h2>Registros recientes</h2><p>Una fila por fecha y cliente</p></div><button id="exportBtn" class="quiet">Exportar CSV</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Cliente</th><th class="num">Cantidad</th></tr></thead><tbody id="recordsBody"></tbody></table></div>
+      <p id="emptyState" class="empty" hidden>No hay registros para esos filtros.</p>
+    </section>
+
+    <section class="card tools-card"><div class="section-head"><div><h2>Datos</h2><p>Importá una planilla en formato CSV.</p></div></div><div class="import-row"><label class="file-button">Elegir CSV<input id="importFile" type="file" accept=".csv,text/csv"></label><span class="hint">Columnas: fecha, cliente, cantidad</span><button id="templateBtn" class="quiet">Plantilla</button></div><p id="importMessage" class="message" aria-live="polite"></p></section>
+    <p class="footnote">Demo con datos ficticios. Guarda los registros en este dispositivo. No registra paquetes individuales ni estados de entrega.</p>
+  </main>
+  <button id="fab" class="fab" aria-label="Registrar cantidad">＋</button>
+
+  <dialog id="entryDialog">
+    <form id="entryForm" method="dialog" class="entry-form">
+      <div class="dialog-head"><div><p class="eyebrow">NUEVO REGISTRO</p><h2>Envíos del cliente</h2></div><button type="button" id="closeDialog" class="close-btn" aria-label="Cerrar">×</button></div>
+      <label>Fecha<input id="entryDate" type="date" required></label>
+      <label>Cliente<select id="entryClient"></select></label>
+      <label id="newClientWrap" hidden>Nombre del cliente<input id="newClient" type="text" maxlength="80" placeholder="Ej.: Cliente Nuevo"></label>
+      <label>Cantidad de envíos<input id="entryQty" type="number" min="0" step="1" inputmode="numeric" required value="0"></label>
+      <p class="hint">Si ya existe un registro para esa fecha y ese cliente, se actualizará la cantidad.</p>
+      <button class="primary save-btn" type="submit">Guardar registro</button>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>

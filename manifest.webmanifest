@@ -1,0 +1,14 @@
+{
+  "id": "./",
+  "name": "Registro diario de envíos",
+  "short_name": "Envíos",
+  "description": "Registro diario de cantidades de envíos por cliente",
+  "lang": "es-AR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7f4",
+  "theme_color": "#12372a",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]
+}
